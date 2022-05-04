@@ -26,6 +26,7 @@ func (s *Snake) Init() {
 	s.snakeRenderer.Color = s.Color
 
 }
+
 func (s *Snake) Update() {
 
 	if InputMap.Inputs.Contains(pixelgl.KeyLeft) {
