@@ -9,10 +9,6 @@ import (
 	"image/color"
 )
 
-type SnakePart struct {
-	x, y float64
-}
-
 type Snake struct {
 	Color         color.RGBA
 	snakeRenderer *imdraw.IMDraw
