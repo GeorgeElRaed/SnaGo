@@ -38,15 +38,16 @@ func clearInputs() {
 
 func run() {
 	cfg := pixelgl.WindowConfig{
-		Title:  "SnaGo",
-		Bounds: pixel.R(0, 0, Config.WindowWidth, Config.WindowHeight),
+		Title:     "SnaGo",
+		Bounds:    pixel.R(0, 0, Config.WindowWidth, Config.WindowHeight),
+		Resizable: true,
 	}
 	win, err := pixelgl.NewWindow(cfg)
 	if err != nil {
 		panic(err)
 	}
 
-	g := game.Init()
+	g := game.Create()
 
 	g.Init()
 
