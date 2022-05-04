@@ -24,7 +24,6 @@ func (a *Apple) Init() {
 	a.appleRenderer.Rectangle(0)
 	a.appleRenderer.Push(pixel.V(a.position.X*Config.BlockWidth, a.position.Y*Config.BlockHeight), pixel.V(a.position.X*Config.BlockWidth+Config.BlockWidth, a.position.Y*Config.BlockHeight+Config.BlockHeight))
 	a.appleRenderer.Rectangle(1)
-
 }
 
 func (a *Apple) Update() {
