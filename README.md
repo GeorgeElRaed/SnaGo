@@ -6,7 +6,7 @@ SnaGo is Snake written in Go...
 
 To install the game run:
 ```bash
-go install github.com/GeorgeElRaed/SnaGo
+go install github.com/GeorgeElRaed/SnaGo@latest
 ```
 
 or clone the repo and run:
