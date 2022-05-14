@@ -39,21 +39,20 @@ func (s *Snake) Update() {
 
 	if InputMap.Inputs.Contains(pixelgl.KeyLeft) && s.moveDirection.Y != 0 {
 		s.moveDirection = pixel.V(-1, 0)
-	}
-	if InputMap.Inputs.Contains(pixelgl.KeyRight) && s.moveDirection.Y != 0 {
+	} else if InputMap.Inputs.Contains(pixelgl.KeyRight) && s.moveDirection.Y != 0 {
 		s.moveDirection = pixel.V(1, 0)
-	}
-	if InputMap.Inputs.Contains(pixelgl.KeyUp) && s.moveDirection.X != 0 {
+	} else if InputMap.Inputs.Contains(pixelgl.KeyUp) && s.moveDirection.X != 0 {
 		s.moveDirection = pixel.V(0, 1)
-	}
-	if InputMap.Inputs.Contains(pixelgl.KeyDown) && s.moveDirection.X != 0 {
+	} else if InputMap.Inputs.Contains(pixelgl.KeyDown) && s.moveDirection.X != 0 {
 		s.moveDirection = pixel.V(0, -1)
 	}
+
 	for i := range s.snakeParts {
 		if i < len(s.snakeParts)-1 {
 			s.snakeParts[len(s.snakeParts)-i-1] = s.snakeParts[len(s.snakeParts)-i-2]
 		}
 	}
+	
 	s.snakeParts[0] = s.snakeParts[0].Add(s.moveDirection)
 	if s.snakeParts[0].X < 0 {
 		s.snakeParts[0] = pixel.V(Config.GridHorizontalCount-1, s.snakeParts[0].Y)

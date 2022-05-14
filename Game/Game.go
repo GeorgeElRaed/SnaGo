@@ -1,22 +1,22 @@
 package game
 
 import (
-	"fmt"
 	"github.com/GeorgeElRaed/SnaGo/Apple"
+	grid "github.com/GeorgeElRaed/SnaGo/Grid"
 	snake "github.com/GeorgeElRaed/SnaGo/Snake"
 	em "github.com/GeorgeElRaed/SnaGo/entitymanager"
-	"github.com/GeorgeElRaed/SnaGo/grid"
 	"github.com/faiface/pixel/pixelgl"
 	"golang.org/x/image/colornames"
 )
 
 type Game struct {
-	em *em.EntityManager
+	em         *em.EntityManager
+	OnGameOver func(*Game)
 }
 
-func handleSnakeCollision(event snake.CollisionEvent) {
+func handleSnakeCollision(event snake.CollisionEvent, game *Game) {
 	if event.CollidedWith == "snake" {
-		fmt.Println("DEATHHHHHH")
+		game.OnGameOver(game)
 	}
 
 	if event.CollidedWith == "apple" {
@@ -25,17 +25,22 @@ func handleSnakeCollision(event snake.CollisionEvent) {
 	}
 }
 
-func Create() *Game {
-	g := Game{em: em.Init()}
-	g.em.Add(&grid.Grid{})
-	a := Apple.Apple{}
-	g.em.Add(&a)
-	g.em.Add(&snake.Snake{Color: colornames.Green, Apple: &a, OnCollisionListeners: []func(event snake.CollisionEvent){handleSnakeCollision}})
-
+func Create(OnGameOver func(*Game)) *Game {
+	g := Game{OnGameOver: OnGameOver}
 	return &g
 }
 
 func (g *Game) Init() {
+	g.em = em.Create()
+	g.em.Add(&grid.Grid{})
+	a := Apple.Apple{}
+	g.em.Add(&a)
+	g.em.Add(&snake.Snake{Color: colornames.Green, Apple: &a, OnCollisionListeners: []func(event snake.CollisionEvent){
+		func(event snake.CollisionEvent) {
+			handleSnakeCollision(event, g)
+		},
+	}})
+
 	g.em.Init()
 }
 

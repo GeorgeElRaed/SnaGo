@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/GeorgeElRaed/SnaGo/Config"
 	"github.com/GeorgeElRaed/SnaGo/InputMap"
+	"github.com/electricbubble/go-toast"
 	_ "image/png"
 	"time"
 
@@ -47,7 +48,10 @@ func run() {
 		panic(err)
 	}
 
-	g := game.Create()
+	g := game.Create(func(game *game.Game) {
+		_ = toast.Push("You Lost, Restarting!", toast.WithTitle("SnaGo"))
+		game.Init()
+	})
 
 	g.Init()
 

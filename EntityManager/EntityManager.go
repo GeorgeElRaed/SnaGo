@@ -14,7 +14,7 @@ type EntityManager struct {
 	Entities []Entity
 }
 
-func Init() *EntityManager {
+func Create() *EntityManager {
 	return &EntityManager{Entities: make([]Entity, 0)}
 }
 
